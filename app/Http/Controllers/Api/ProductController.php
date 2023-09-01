@@ -1,25 +1,31 @@
 <?php
 
 namespace App\Http\Controllers\Api;
+
+use App\Helpers\CustomResponse;
 use App\Http\Controllers\Controller;
 use App\Models\ProductModel;
 use Illuminate\Http\Request;
-
+use Illuminate\Support\Facades\Validator;
 class ProductController extends Controller
 {
     public function index()
     {
         $products = ProductModel::get();
-        return response()->json([
-            'data' => $products,
-            'message' => 'Success get data',
-            'status' => 200
-        ]);
+        return CustomResponse::response(0, 'Success get data', $products);
     }
 
     public function create(Request $request)
     {
         $input = $request->all();
+        $validator = Validator::make($input, [
+            'name' => 'required',
+        ]);
+        if ($validator->fails()) {
+            $getMessage = $validator->errors();
+            return CustomResponse::response(144, 'Validation Failed', $getMessage);
+
+        }
         ProductModel::create($input);
         return response()->json([
             'data' => [],
@@ -49,5 +55,4 @@ class ProductController extends Controller
             'status' => 200
         ]);
     }
-
 }
