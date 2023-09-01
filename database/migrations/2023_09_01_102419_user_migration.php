@@ -14,7 +14,9 @@ class UserMigration extends Migration
         Schema::create('users', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->string('alamat');
+            $table->string('alamat')->nullable();
+            $table->string('email');
+            $table->string('password');
             $table->tinyInteger('roles')->default(1)->comment('1= user, 2= admin');
             $table->softDeletes();
             $table->timestamps();

@@ -16,7 +16,9 @@
 $router->get('/', function () use ($router) {
     return $router->app->version();
 });
-
+$router->get('/key', function() {
+    return \Illuminate\Support\Str::random(32);
+});
 $router->group(['namespace' => 'Api'], function() use ($router) {
     $router->group(['prefix' => 'product'], function () use ($router) {
         $router->get('data', 'ProductController@index');
@@ -25,6 +27,7 @@ $router->group(['namespace' => 'Api'], function() use ($router) {
         $router->delete('delete/{id}', 'ProductController@delete');
     });
     $router->group(['prefix' => 'users'], function () use ($router) {
+        $router->post('/register','UsersController@register');
         $router->get('data', 'UsersController@index');
         $router->post('add', 'UsersController@create');
         $router->put('update/{id}', 'UsersController@update');
