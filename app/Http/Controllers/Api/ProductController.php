@@ -9,9 +9,14 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 class ProductController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $products = ProductModel::get();
+        $input = $request->all();
+        $products = ProductModel::orderBy('id', 'asc');
+        if (isset($input['search'])) {
+            $products = $products->where('name','like',"%{$input['search']}%");
+        }
+        $products = $products->skip($input['skip'])->take($input['take'])->get();
         return CustomResponse::response(0, 'Success get data', $products);
     }
 
