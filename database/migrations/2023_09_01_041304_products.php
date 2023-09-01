@@ -14,7 +14,8 @@ class Products extends Migration
         Schema::create('products', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->integer('stocks');
+            $table->integer('stocks')->default(0);
+            $table->softDeletes();
             $table->timestamps();
         });
     }

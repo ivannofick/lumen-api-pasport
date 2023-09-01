@@ -27,32 +27,24 @@ class ProductController extends Controller
 
         }
         ProductModel::create($input);
-        return response()->json([
-            'data' => [],
-            'message' => 'Success Create Data',
-            'status' => 200
-        ]);
+        return CustomResponse::response(0, 'Success Create Data');
     }
 
     public function update(Request $request, $id)
     {
         $input = $request->all();
-        ProductModel::whereId($id)->update($input);
-        return response()->json([
-            'data' => [],
-            'message' => 'Success Update Data',
-            'status' => 200
-        ]);
+        $getProductModel = ProductModel::find($id);
+        $input['stocks'] = $input['stocks'] + $getProductModel->stocks;
+        $getProductModel->update($input);
+        return CustomResponse::response(0, 'Success Update Data');
+
     }
 
     public function delete($id)
     {
         $productData = ProductModel::find($id);
         $productData->delete();
-        return response()->json([
-            'data' => [],
-            'message' => 'Success Delete Data',
-            'status' => 200
-        ]);
+        return CustomResponse::response(0, 'Success Delete Data');
+
     }
 }
