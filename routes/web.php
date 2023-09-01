@@ -24,4 +24,10 @@ $router->group(['namespace' => 'Api'], function() use ($router) {
         $router->put('update/{id}', 'ProductController@update');
         $router->delete('delete/{id}', 'ProductController@delete');
     });
+    $router->group(['prefix' => 'users'], function () use ($router) {
+        $router->get('data', 'UsersController@index');
+        $router->post('add', 'UsersController@create');
+        $router->put('update/{id}', 'UsersController@update');
+        $router->delete('delete/{id}', 'UsersController@delete');
+    });
 });

@@ -4,17 +4,18 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class Products extends Migration
+class UserMigration extends Migration
 {
     /**
      * Run the migrations.
      */
     public function up(): void
     {
-        Schema::create('products', function (Blueprint $table) {
+        Schema::create('users', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->integer('stocks')->default(0);
+            $table->string('alamat');
+            $table->tinyInteger('roles')->default(1)->comment('1= user, 2= admin');
             $table->softDeletes();
             $table->timestamps();
         });
