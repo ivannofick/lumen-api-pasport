@@ -2,45 +2,52 @@
 
 namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
+use App\Models\ProductModel;
 use Illuminate\Http\Request;
 
 class ProductController extends Controller
 {
     public function index()
     {
+        $products = ProductModel::get();
         return response()->json([
-            'message' => 'Hello, World!',
+            'data' => $products,
+            'message' => 'Success get data',
             'status' => 200
         ]);
     }
 
-    public function create()
+    public function create(Request $request)
     {
-        // Logika untuk menampilkan form pembuatan data
-    }
-
-    public function store(Request $request)
-    {
-        // Logika untuk menyimpan data baru
-    }
-
-    public function show($id)
-    {
-        // Logika untuk menampilkan data berdasarkan ID
-    }
-
-    public function edit($id)
-    {
-        // Logika untuk menampilkan form edit data
+        $input = $request->all();
+        ProductModel::create($input);
+        return response()->json([
+            'data' => [],
+            'message' => 'Success Create Data',
+            'status' => 200
+        ]);
     }
 
     public function update(Request $request, $id)
     {
-        // Logika untuk mengupdate data
+        $input = $request->all();
+        ProductModel::whereId($id)->update($input);
+        return response()->json([
+            'data' => [],
+            'message' => 'Success Update Data',
+            'status' => 200
+        ]);
     }
 
-    public function destroy($id)
+    public function delete($id)
     {
-        // Logika untuk menghapus data
+        $productData = ProductModel::find($id);
+        $productData->delete();
+        return response()->json([
+            'data' => [],
+            'message' => 'Success Delete Data',
+            'status' => 200
+        ]);
     }
+
 }

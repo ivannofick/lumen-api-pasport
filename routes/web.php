@@ -19,6 +19,9 @@ $router->get('/', function () use ($router) {
 
 $router->group(['namespace' => 'Api'], function() use ($router) {
     $router->group(['prefix' => 'product'], function () use ($router) {
-        $router->get('users', 'ProductController@index');
+        $router->get('data', 'ProductController@index');
+        $router->post('add', 'ProductController@create');
+        $router->put('update/{id}', 'ProductController@update');
+        $router->delete('delete/{id}', 'ProductController@delete');
     });
 });

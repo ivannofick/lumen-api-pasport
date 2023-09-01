@@ -14,7 +14,7 @@ class Products extends Migration
         Schema::create('products', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->tinyInteger('stocks');
+            $table->integer('stocks');
             $table->timestamps();
         });
     }
