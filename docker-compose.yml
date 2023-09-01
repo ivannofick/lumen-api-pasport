@@ -1,0 +1,25 @@
+version: '3'
+services: 
+  mysql:
+    image: 'mysql'
+    ports: 
+      - '3306:3306'
+    environment: 
+      MYSQL_ROOT_PASSWORD: root123 #this is password for access adminer
+      MYSQL_DATABASE: dbstart #this is Db on MySql
+      MYSQL_USER: userstart #this is user MySql
+      MYSQL_PASSWORD: mysql123 #this is password MySql
+    networks: 
+      - 'database-net'
+    volumes: 
+      - ./data:/var/lib/mysql
+  
+  adminer:
+    image: 'adminer'
+    ports: 
+      - '8081:8080'
+    networks: 
+      - 'database-net'
+
+networks:
+  database-net:
