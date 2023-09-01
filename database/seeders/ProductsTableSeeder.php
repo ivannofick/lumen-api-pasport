@@ -10,16 +10,40 @@ class ProductsTableSeeder extends Seeder
         // Contoh data pengguna
         $users = [
             [
-                'name' => 'sepatu',
-                'stocks' => 1000,
+                'name' => 'Parfum Pink',
+                'price' => 6000,
+                'image' => 'parfum.svg',
+                'stocks' => 1000
             ],
             [
-                'name' => 'sandal',
-                'stocks' => 50,
+                'name' => 'Parfum Item',
+                'price' => 30000,
+                'image' => 'parfum-item.svg',
+                'stocks' => 1000
             ],
             [
-                'name' => 'kaus kaki',
-                'stocks' => 50,
+                'name' => 'Parfum Pinks',
+                'price' => 560000,
+                'image' => 'parfum.svg',
+                'stocks' => 1000
+            ],
+            [
+                'name' => 'Parfum Pinks',
+                'price' => 560000,
+                'image' => 'parfum.svg',
+                'stocks' => 1000
+            ],
+            [
+                'name' => 'Parfum warna Pinks',
+                'price' => 50000,
+                'image' => 'parfum.svg',
+                'stocks' => 1000
+            ],
+            [
+                'name' => 'Parfum gasdas Pinks',
+                'price' => 560000,
+                'image' => 'parfum.svg',
+                'stocks' => 1000
             ],
         ];
 
