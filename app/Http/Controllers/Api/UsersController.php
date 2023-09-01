@@ -62,17 +62,37 @@ class UsersController extends Controller
         ]);
 
         if ($validator->fails()) {
-            return response(['message' => 'Validation errors', 'errors' =>  $validator->errors(), 'status' => false], 422);
+            $getMessage = $validator->errors();
+            return CustomResponse::response(144, 'Validation Failed', $getMessage);
         }
 
         $input = $request->all();
         $input['password'] = Hash::make($input['password']);
         $user = User::create($input);
-
-        /**Take note of this: Your user authentication access token is generated here **/
-        $data['token'] =  $user->createToken('MyApp')->accessToken;
         $data['name'] =  $user->name;
+        return CustomResponse::response(0, 'Account created successfully');
+    }
 
-        return response(['data' => $data, 'message' => 'Account created successfully!', 'status' => true]);
+    public function login(Request $request)
+    {
+        $this->validate($request, [
+            'email' => 'required',
+            'password' => 'required'
+        ]);
+
+        $user = User::where('email', $request->email)->first();
+        if ($user) {
+            if (Hash::check($request->password, $user->password)) {
+                $token = $user->createToken('Laravel Password Grant Client')->accessToken;
+                return CustomResponse::response(0, 'Login Successfully', $token);
+            } else {
+                $response = ["message" => "Password mismatch"];
+                return CustomResponse::response(144, 'Password mismatch');
+
+            }
+        } else {
+            $response = ["message" => 'User does not exist'];
+            return CustomResponse::response(144, 'User does not exist');
+        }
     }
 }
