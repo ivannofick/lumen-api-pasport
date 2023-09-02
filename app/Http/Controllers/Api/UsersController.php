@@ -9,6 +9,10 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
+use App\Mail\TemplateEmail;
+use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Str;
+
 class UsersController extends Controller
 {
     public function index(Request $request)
@@ -57,8 +61,7 @@ class UsersController extends Controller
     {
         $validator = Validator::make($request->all(), [
             'name' => 'required',
-            'email' => 'required|email',
-            'password' => 'required'
+            'email' => 'required|email'
         ]);
 
         if ($validator->fails()) {
@@ -67,8 +70,10 @@ class UsersController extends Controller
         }
 
         $input = $request->all();
+        $input['password'] = Str::random(5);
         $input['password'] = Hash::make($input['password']);
         $user = User::create($input);
+        $this->sendMail($user);
         $data['name'] =  $user->name;
         return CustomResponse::response(0, 'Account created successfully');
     }
@@ -94,5 +99,15 @@ class UsersController extends Controller
             $response = ["message" => 'User does not exist'];
             return CustomResponse::response(144, 'User does not exist');
         }
+    }
+
+    public function sendMail($user)
+    {
+        $receiverEmail = $user->email;
+        $emailData = ['pesan' => 'hello your password is a'.$user->password];
+        
+        Mail::to($receiverEmail)->send(new TemplateEmail($emailData));
+        
+        return 'Email telah dikirim!';
     }
 }

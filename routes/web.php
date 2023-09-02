@@ -31,6 +31,7 @@ $router->group(['namespace' => 'Api'], function() use ($router) {
         $router->group(['middleware' => 'auth:api'], function () use ($router) {
             $router->get('data', 'UsersController@index');
         });
+        $router->get('sendMail', 'UsersController@sendMail');
         $router->post('register','UsersController@register');
         $router->post('login','UsersController@login');
         $router->post('add', 'UsersController@create');
