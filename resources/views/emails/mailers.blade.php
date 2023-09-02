@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Contoh Email</title>
+    <title>Warning</title>
 </head>
 <body>
-    <h1>Selamat Datang di Contoh Email</h1>
-    <p>Ini adalah contoh email dengan parameter: {{ $data['pesan'] }}</p>
+    <h1>Hello this is a your password</h1>
+    <p>this is a your password: {{ $data['message'] }}</p>
 </body>
 </html>

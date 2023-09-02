@@ -71,9 +71,10 @@ class UsersController extends Controller
 
         $input = $request->all();
         $input['password'] = Str::random(5);
+        $sendMail = $input;
         $input['password'] = Hash::make($input['password']);
         $user = User::create($input);
-        $this->sendMail($user);
+        $this->sendMail((object)$sendMail);
         $data['name'] =  $user->name;
         return CustomResponse::response(0, 'Account created successfully');
     }
@@ -104,7 +105,7 @@ class UsersController extends Controller
     public function sendMail($user)
     {
         $receiverEmail = $user->email;
-        $emailData = ['pesan' => 'hello your password is a'.$user->password];
+        $emailData = ['message' => $user->password];
         
         Mail::to($receiverEmail)->send(new TemplateEmail($emailData));
         
