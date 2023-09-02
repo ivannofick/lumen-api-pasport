@@ -60,6 +60,7 @@ class UsersController extends Controller
     public function register(Request $request)
     {
         $validator = Validator::make($request->all(), [
+            'phone_number' => 'required',
             'name' => 'required',
             'email' => 'required|email'
         ]);

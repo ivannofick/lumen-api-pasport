@@ -20,7 +20,8 @@ class UsersModel extends Model
      */
     protected $fillable = [
         'name',
-        'alamat'
+        'alamat',
+        'phone_number'
     ];
 
     /**
