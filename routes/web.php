@@ -20,6 +20,7 @@ $router->get('/key', function() {
     return \Illuminate\Support\Str::random(32);
 });
 $router->get('/ping', ['middleware' => 'auth:api', fn () => 'pong']);
+
 $router->group(['namespace' => 'Api'], function() use ($router) {
     $router->group(['prefix' => 'product'], function () use ($router) {
         $router->get('data', 'ProductController@index');
@@ -29,7 +30,9 @@ $router->group(['namespace' => 'Api'], function() use ($router) {
     });
     $router->group(['prefix' => 'users'], function () use ($router) {
         $router->group(['middleware' => 'auth:api'], function () use ($router) {
-            $router->get('data', 'UsersController@index');
+            $router->get('/ping', 'UsersController@ping');
+
+            $router->get('/data', 'UsersController@index');
         });
         $router->get('sendMail', 'UsersController@sendMail');
         $router->post('register','UsersController@register');

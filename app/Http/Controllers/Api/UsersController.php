@@ -111,4 +111,9 @@ class UsersController extends Controller
         
         return 'Email telah dikirim!';
     }
+
+    public function ping(Request $request)
+    {
+        return 'pong';
+    }
 }
