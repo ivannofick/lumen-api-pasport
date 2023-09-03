@@ -18,6 +18,7 @@ class Products extends Migration
             $table->string('image');
             $table->integer('stocks')->default(0);
             $table->tinyInteger('status')->default(1)->comment('1= Active, 2= Non Active');
+            $table->integer('production_date');
             $table->softDeletes();
             $table->timestamps();
         });

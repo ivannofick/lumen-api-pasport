@@ -22,7 +22,9 @@ class ProductModel extends Model
         'name',
         'stocks',
         'price',
-        'image'
+        'image',
+        'status',
+        'production_date'
     ];
 
     /**

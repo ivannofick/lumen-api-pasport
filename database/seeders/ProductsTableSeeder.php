@@ -13,37 +13,43 @@ class ProductsTableSeeder extends Seeder
                 'name' => 'Parfum Pink',
                 'price' => 6000,
                 'image' => 'parfum.svg',
-                'stocks' => 1000
+                'stocks' => 1000,
+                'production_date' => strtotime(date('Y-m-d H:i:s'))
             ],
             [
                 'name' => 'Parfum Item',
                 'price' => 30000,
                 'image' => 'parfum-item.svg',
-                'stocks' => 1000
+                'stocks' => 1000,
+                'production_date' => strtotime(date('Y-m-d H:i:s'))
             ],
             [
                 'name' => 'Parfum Pinks',
                 'price' => 560000,
                 'image' => 'parfum.svg',
-                'stocks' => 1000
+                'stocks' => 1000,
+                'production_date' => strtotime(date('Y-m-d H:i:s'))
             ],
             [
                 'name' => 'Parfum Pinks',
                 'price' => 560000,
                 'image' => 'parfum.svg',
-                'stocks' => 1000
+                'stocks' => 1000,
+                'production_date' => strtotime(date('Y-m-d H:i:s'))
             ],
             [
                 'name' => 'Parfum warna Pinks',
                 'price' => 50000,
                 'image' => 'parfum.svg',
-                'stocks' => 1000
+                'stocks' => 1000,
+                'production_date' => strtotime(date('Y-m-d H:i:s'))
             ],
             [
                 'name' => 'Parfum gasdas Pinks',
                 'price' => 560000,
                 'image' => 'parfum.svg',
-                'stocks' => 1000
+                'stocks' => 1000,
+                'production_date' => strtotime(date('Y-m-d H:i:s'))
             ],
         ];
 

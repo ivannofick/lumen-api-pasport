@@ -31,6 +31,7 @@ class ProductController extends Controller
             return CustomResponse::response(144, 'Validation Failed', $getMessage);
 
         }
+        $input['production_date'] = strtotime(date('Y-m-d H:i:s'));
         ProductModel::create($input);
         return CustomResponse::response(0, 'Success Create Data');
     }
