@@ -22,8 +22,10 @@ class UsersController extends Controller
         if (isset($input['search'])) {
             $getUser = $getUser->where('name', 'like', "%{$input['search']}%");
         }
-        $getUser = $getUser->where('status','=', 1)
-                            ->skip($input['skip'])
+        if (!isset($input['get_all'])) {
+            $getUser = $getUser->where('status','=', 1);
+        }
+        $getUser = $getUser->skip($input['skip'])
                             ->take($input['take'])
                             ->get();
         if (isset($input['with_total'])) {
@@ -34,6 +36,12 @@ class UsersController extends Controller
             ];
 
         }
+        return CustomResponse::response(0, 'Success get data', $getUser);
+    }
+
+    public function getDetailUser(Request $request)
+    {
+        $getUser = UsersModel::select('name', 'alamat', 'phone_number', 'status', 'roles')->where('id', '=', $request->id)->first();
         return CustomResponse::response(0, 'Success get data', $getUser);
     }
 
@@ -85,7 +93,8 @@ class UsersController extends Controller
         $input['password'] = Str::random(5);
         $sendMail = $input;
         $input['password'] = Hash::make($input['password']);
-        $user = User::create($input);
+        unset($input['_token']);
+        $user = User::firstOrCreate(['email'=>$input['email']], $input);
         $this->sendMail((object)$sendMail);
         $data['name'] =  $user->name;
         return CustomResponse::response(0, 'Account created successfully');

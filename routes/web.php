@@ -33,6 +33,7 @@ $router->group(['namespace' => 'Api'], function() use ($router) {
             $router->get('/ping', 'UsersController@ping');
             $router->get('/data', 'UsersController@index');
         });
+        $router->get('get-user', 'UsersController@getDetailUser');
         $router->get('sendMail', 'UsersController@sendMail');
         $router->post('register','UsersController@register');
         $router->post('login','UsersController@login');

@@ -18,8 +18,8 @@ class UserMigration extends Migration
             $table->string('alamat')->nullable();
             $table->string('email');
             $table->string('password');
-            $table->tinyInteger('roles')->default(1)->comment('1= user, 2= admin');
-            $table->tinyInteger('status')->default(1)->comment('1= Active, 2= Non Active');
+            $table->tinyInteger('roles')->default(2)->comment('1= user, 2= admin');
+            $table->tinyInteger('status')->default(2)->comment('1= Active, 2= Non Active');
             $table->softDeletes();
             $table->timestamps();
         });
