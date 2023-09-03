@@ -144,4 +144,12 @@ class UsersController extends Controller
     {
         return 'pong';
     }
+
+    public function approveUser(Request $request)
+    {
+        $user = UsersModel::find($request->id);
+        $user->status = 1;
+        $user->save();
+        return CustomResponse::response(0, 'statu successfully updated');
+    }
 }
