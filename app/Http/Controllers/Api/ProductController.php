@@ -16,6 +16,7 @@ class ProductController extends Controller
         if (isset($input['search'])) {
             $products = $products->where('name','like',"%{$input['search']}%");
         }
+        $products = $products->where('status','=', 1);
         $products = $products->skip($input['skip'])->take($input['take'])->get();
         return CustomResponse::response(0, 'Success get data', $products);
     }

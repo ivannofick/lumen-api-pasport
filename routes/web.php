@@ -31,7 +31,6 @@ $router->group(['namespace' => 'Api'], function() use ($router) {
     $router->group(['prefix' => 'users'], function () use ($router) {
         $router->group(['middleware' => 'auth:api'], function () use ($router) {
             $router->get('/ping', 'UsersController@ping');
-
             $router->get('/data', 'UsersController@index');
         });
         $router->get('sendMail', 'UsersController@sendMail');

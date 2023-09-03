@@ -18,12 +18,13 @@ class UsersController extends Controller
     public function index(Request $request)
     {
         $input = $request->all();
-        $products = UsersModel::orderBy('id', 'asc');
+        $getUser = UsersModel::orderBy('id', 'asc');
         if (isset($input['search'])) {
-            $products = $products->where('name', 'like', "%{$input['search']}%");
+            $getUser = $getUser->where('name', 'like', "%{$input['search']}%");
         }
-        $products = $products->skip($input['skip'])->take($input['take'])->get();
-        return CustomResponse::response(0, 'Success get data', $products);
+        $getUser = $getUser->where('status','=', 1);
+        $getUser = $getUser->skip($input['skip'])->take($input['take'])->get();
+        return CustomResponse::response(0, 'Success get data', $getUser);
     }
 
     public function create(Request $request)
@@ -91,7 +92,14 @@ class UsersController extends Controller
         if ($user) {
             if (Hash::check($request->password, $user->password)) {
                 $token = $user->createToken('Laravel Password Grant Client')->accessToken;
-                return CustomResponse::response(0, 'Login Successfully', $token);
+                $data = [
+                    'access_token' => $token,
+                    'name'  => $user->name,
+                    'status'  => $user->status,
+                    'email'  => $user->email,
+                    'roles' => $user->roles
+                ];
+                return CustomResponse::response(0, 'Login Successfully', $data);
             } else {
                 $response = ["message" => "Password mismatch"];
                 return CustomResponse::response(144, 'Password mismatch');

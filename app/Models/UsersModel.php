@@ -21,7 +21,9 @@ class UsersModel extends Model
     protected $fillable = [
         'name',
         'alamat',
-        'phone_number'
+        'phone_number',
+        'status',
+        'roles'
     ];
 
     /**
