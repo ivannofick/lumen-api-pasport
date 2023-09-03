@@ -16,8 +16,18 @@ class ProductController extends Controller
         if (isset($input['search'])) {
             $products = $products->where('name','like',"%{$input['search']}%");
         }
-        $products = $products->where('status','=', 1);
-        $products = $products->skip($input['skip'])->take($input['take'])->get();
+        $products = $products->where('status','=', 1)
+                            ->skip($input['skip'])
+                            ->take($input['take'])
+                            ->get();
+        if (isset($input['with_total'])) {
+            $products = [
+                'data' => $products,
+                'totalProduct' => ProductModel::totalProduct(),
+                'activeCountTotal' => ProductModel::activeCount(),
+            ];
+
+        }
         return CustomResponse::response(0, 'Success get data', $products);
     }
 

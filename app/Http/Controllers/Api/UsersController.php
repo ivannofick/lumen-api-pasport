@@ -22,8 +22,18 @@ class UsersController extends Controller
         if (isset($input['search'])) {
             $getUser = $getUser->where('name', 'like', "%{$input['search']}%");
         }
-        $getUser = $getUser->where('status','=', 1);
-        $getUser = $getUser->skip($input['skip'])->take($input['take'])->get();
+        $getUser = $getUser->where('status','=', 1)
+                            ->skip($input['skip'])
+                            ->take($input['take'])
+                            ->get();
+        if (isset($input['with_total'])) {
+            $getUser = [
+                'data' => $getUser,
+                'totalUser' => UsersModel::totalUser(),
+                'activeCountTotal' => UsersModel::activeCount(),
+            ];
+
+        }
         return CustomResponse::response(0, 'Success get data', $getUser);
     }
 
