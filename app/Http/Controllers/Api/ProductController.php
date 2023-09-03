@@ -16,8 +16,10 @@ class ProductController extends Controller
         if (isset($input['search'])) {
             $products = $products->where('name','like',"%{$input['search']}%");
         }
-        $products = $products->where('status','=', 1)
-                            ->skip($input['skip'])
+        if (!isset($input['get_all'])) {
+            $products = $products->where('status','=', 1);
+        }
+        $products = $products->skip($input['skip'])
                             ->take($input['take'])
                             ->get();
         if (isset($input['with_total'])) {
@@ -33,7 +35,9 @@ class ProductController extends Controller
 
     public function create(Request $request)
     {
+        dd('sadsad');
         $input = $request->all();
+        dd($input);
         $validator = Validator::make($input, [
             'name' => 'required',
         ]);
